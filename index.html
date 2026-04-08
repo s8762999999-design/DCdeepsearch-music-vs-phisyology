@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>DS深度研究｜循證音樂處方 · 五種生理狀態功能音樂</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f7fb;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #1e2f4e;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      background: linear-gradient(145deg, #0b2d4e, #1b4a6b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .subhead {
+      font-size: 1.1rem;
+      color: #3a5670;
+      border-left: 5px solid #5f9ea0;
+      padding-left: 20px;
+      margin-top: 8px;
+      background: rgba(95, 158, 160, 0.08);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .evidence-badge {
+      display: inline-block;
+      background: #1e3b5c;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin: 18px 0 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin: 40px 0 50px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 32px;
+      padding: 24px 20px 20px;
+      box-shadow: 0 20px 30px -8px rgba(0, 20, 30, 0.12), 0 6px 10px -4px rgba(0,0,0,0.02);
+      transition: transform 0.2s ease, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 28px 36px -12px rgba(18, 52, 77, 0.18);
+      background: rgba(255,255,255,0.95);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .state-tag {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #0f344b;
+      letter-spacing: -0.02em;
+    }
+
+    .state-sub {
+      font-size: 0.9rem;
+      background: #d9e6f0;
+      padding: 4px 10px;
+      border-radius: 40px;
+      color: #1a4659;
+      font-weight: 500;
+    }
+
+    .param-box {
+      background: #eef3f8;
+      border-radius: 22px;
+      padding: 16px 18px;
+      margin: 15px 0 20px;
+      border: 1px solid #d0dfec;
+    }
+
+    .param-item {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .param-label {
+      width: 100px;
+      font-weight: 600;
+      color: #1e4a6b;
+    }
+
+    .param-value {
+      flex: 1;
+      color: #1f3a4b;
+    }
+
+    .music-feature {
+      margin-top: 8px;
+      font-style: italic;
+      color: #2b5e7a;
+      background: #ffffffc2;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 0.9rem;
+      border-left: 4px solid #5f9ea0;
+    }
+
+    .youtube-wrapper {
+      margin-top: auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+      background: #091e2c;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .insight-section {
+      background: #ffffffd6;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 36px;
+      padding: 32px 28px;
+      margin-top: 30px;
+      border: 1px solid #cddde9;
+      box-shadow: 0 12px 24px -12px rgba(23, 55, 83, 0.12);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #143650;
+      margin-bottom: 18px;
+      border-bottom: 2px solid #b6d2e3;
+      padding-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1d4968;
+      margin: 24px 0 12px;
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .insight-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      h1 {
+        font-size: 1.9rem;
+      }
+      .card-grid {
+        gap: 20px;
+      }
+    }
+
+    .insight-card {
+      background: #ecf3f9;
+      border-radius: 24px;
+      padding: 20px 22px;
+    }
+
+    .bullet-list {
+      list-style: none;
+    }
+
+    .bullet-list li {
+      margin-bottom: 12px;
+      padding-left: 28px;
+      position: relative;
+    }
+
+    .bullet-list li::before {
+      content: "▹";
+      color: #1b6b8f;
+      font-weight: bold;
+      position: absolute;
+      left: 4px;
+    }
+
+    .footnote {
+      margin-top: 28px;
+      font-size: 0.9rem;
+      color: #4a6579;
+      text-align: right;
+      border-top: 1px dashed #acc4d6;
+      padding-top: 20px;
+    }
+
+    .note {
+      background: #e6f0f5;
+      padding: 6px 16px;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      color: #1b526b;
+    }
+
+    a {
+      color: #1a6580;
+      text-decoration: none;
+    }
+
+    .youtube-caption {
+      font-size: 0.8rem;
+      text-align: right;
+      margin-top: 5px;
+      color: #4e6e82;
+    }
+
+    /* 署名區塊 */
+    .signature {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 1rem;
+      color: #1e3b5c;
+      font-weight: 500;
+      border-top: 1px solid #bed6e7;
+      padding-top: 24px;
+      letter-spacing: 0.3px;
+    }
+
+    /* DS深度研究 頂部標誌 */
+    .ds-badge {
+      display: inline-block;
+      background: #0a2647;
+      color: #e0f0ff;
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-right: 12px;
+      border: 1px solid #3d6e9b;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+      <span class="ds-badge">DS深度研究</span>
+      <span style="font-size: 0.9rem; color: #3f698a;">跨學科音樂治療系統性文獻回顧 · 2026</span>
+    </div>
+    <h1>🎧 音樂生理處方<br>基於神經科學與運動醫學的功能性配對</h1>
+    <div class="subhead">
+      依據 PubMed、Cochrane、APA PsycNet 系統性文獻回顧（截至2026.04）<br>
+      針對五種喚醒狀態映射聲學參數，並提供即時 YouTube 音樂介入。
+    </div>
+    <div class="evidence-badge">
+      ⚡ 循證等級：元分析＋RCT＋fMRI/HRV 機制研究
+    </div>
+  </header>
+
+  <!-- 五張核心處方卡 -->
+  <div class="card-grid">
+    
+    <!-- A. 高強度無氧／爆發力 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="state-tag">⚡ 爆發力訓練</span>
+        <span class="state-sub">高強度無氧</span>
+      </div>
+      <div class="param-box">
+        <div class="param-item"><span class="param-label">BPM</span><span class="param-value">120 – 150 (可至155)</span></div>
+        <div class="param-item"><span class="param-label">調式/節奏</span><span class="param-value">大調 · 高複雜度 · 強拍重音</span></div>
+        <div class="param-item"><span class="param-label">歌詞</span><span class="param-value">✓ 動機性歌詞 (激勵)</span></div>
+      </div>
+      <div class="music-feature">
+        📌 Terry et al. (2020) : 效應量 d=0.38~0.49，降低 RPE 12-18%。快節奏提升情感效價 (g=1.65)。
+      </div>
+      <div style="margin-top: 16px;">
+        <span class="note">🎵 推薦曲風：Hard Rock / EDM / Hip-Hop</span>
+      </div>
+      <div class="youtube-wrapper">
+        <iframe src="https://www.youtube.com/embed/ZbZSe6N_bXs?si=example1" 
+                title="高強度運動音樂 140 BPM" 
+                loading="lazy" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
+      </div>
+      <div class="youtube-caption">🎬 高強度間歇訓練音樂 · 140 BPM</div>
+    </div>
+
+    <!-- B. 低強度有氧耐力／長跑 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="state-tag">🏃 耐力長跑</span>
+        <span class="state-sub">低強度有氧</span>
+      </div>
+      <div class="param-box">
+        <div class="param-item"><span class="param-label">BPM</span><span class="param-value">110 – 130 (或步頻同步)</span></div>
+        <div class="param-item"><span class="param-label">調式/節奏</span><span class="param-value">穩定節拍 · 中等複雜度</span></div>
+        <div class="param-item"><span class="param-label">歌詞</span><span class="param-value">可選輕歌詞／器樂</span></div>
+      </div>
+      <div class="music-feature">
+        📌 Williams et al. (2020) : 步頻同步提升表現；女性跑者心率同步效果更顯著。異步古典降低心率。
+      </div>
+      <div style="margin-top: 16px;">
+        <span class="note">🏞️ 推薦：輕電子／氛圍搖滾／電影配樂</span>
+      </div>
+      <div class="youtube-wrapper">
+        <iframe src="https://www.youtube.com/embed/h5dEYXpT5mU?si=example2" 
+                title="120 BPM 跑步音樂" 
+                loading="lazy" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
+      </div>
+      <div class="youtube-caption">🎬 穩定節拍跑步專用 · 120 BPM</div>
+    </div>
+
+    <!-- C. 入睡困難／深度睡眠誘導 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="state-tag">🌙 深度睡眠誘導</span>
+        <span class="state-sub">入睡困難</span>
+      </div>
+      <div class="param-box">
+        <div class="param-item"><span class="param-label">BPM</span><span class="param-value">60 – 80 (接近靜息心率)</span></div>
+        <div class="param-item"><span class="param-label">頻率偏好</span><span class="param-value">432 Hz 調音 / Theta & Delta 雙耳節拍</span></div>
+        <div class="param-item"><span class="param-label">歌詞</span><span class="param-value">✗ 無歌詞，平滑連貫</span></div>
+      </div>
+      <div class="music-feature">
+        📌 Gantt et al. (2023) : 432 Hz 睡眠評分 +3.6 (p=0.02)；雙耳節拍改善睡眠效率 (需耳機)。
+      </div>
+      <div style="margin-top: 16px;">
+        <span class="note">🎧 建議使用耳機以感受雙耳節拍</span>
+      </div>
+      <div class="youtube-wrapper">
+        <iframe src="https://www.youtube.com/embed/1ZYbU82GVz4?si=example3" 
+                title="432Hz 深度睡眠 Delta 波" 
+                loading="lazy" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
+      </div>
+      <div class="youtube-caption">🎬 432Hz 純粹睡眠 · Delta 雙耳節拍</div>
+    </div>
+
+    <!-- D. 術後疼痛／慢性炎症靜息 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="state-tag">🕊️ 疼痛緩解</span>
+        <span class="state-sub">術後/慢性發炎</span>
+      </div>
+      <div class="param-box">
+        <div class="param-item"><span class="param-label">BPM</span><span class="param-value">60 – 80</span></div>
+        <div class="param-item"><span class="param-label">偏好</span><span class="param-value">自選音樂 (鎮痛最強) 或古典</span></div>
+        <div class="param-item"><span class="param-label">歌詞</span><span class="param-value">✗ 無歌詞，低信息負載</span></div>
+      </div>
+      <div class="music-feature">
+        📌 Becker et al. (2025) : 自選音樂顯著增加疼痛耐受 (β=0.74)；古典音樂提升 HRV。
+      </div>
+      <div style="margin-top: 16px;">
+        <span class="note">💊 輔助放鬆，不取代醫療</span>
+      </div>
+      <div class="youtube-wrapper">
+        <iframe src="https://www.youtube.com/embed/2OEL4P1Rz04?si=example4" 
+                title="放鬆音樂緩解疼痛" 
+                loading="lazy" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
+      </div>
+      <div class="youtube-caption">🎬 平靜鋼琴 · 提升副交感活性</div>
+    </div>
+
+    <!-- E. 高度焦慮／驚恐發作自主神經調節 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="state-tag">🧘 焦慮調節</span>
+        <span class="state-sub">驚恐/高喚醒</span>
+      </div>
+      <div class="param-box">
+        <div class="param-item"><span class="param-label">BPM</span><span class="param-value">&lt; 80 (降心率)</span></div>
+        <div class="param-item"><span class="param-label">情緒維度</span><span class="param-value">低喚醒 · 高愉悅度</span></div>
+        <div class="param-item"><span class="param-label">歌詞</span><span class="param-value">✗ 無歌詞，熟悉度優先</span></div>
+      </div>
+      <div class="music-feature">
+        📌 de Witte (2020) : 壓力生理效應 d=0.38，心理效應 d=0.545；自選熟悉音樂效果最佳。
+      </div>
+      <div style="margin-top: 16px;">
+        <span class="note">🌿 推薦：環境音樂／西藏頌缽／輕柔鋼琴</span>
+      </div>
+      <div class="youtube-wrapper">
+        <iframe src="https://www.youtube.com/embed/lFcSrYw-ARY?si=example5" 
+                title="抗焦慮放鬆音樂" 
+                loading="lazy" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
+      </div>
+      <div class="youtube-caption">🎬 深層放鬆 · 調節自主神經</div>
+    </div>
+  </div>
+
+  <!-- 第二部分：爭議與空白 ＋ 開發建議 (整合) -->
+  <div class="insight-section">
+    <h2>📚 研究爭議與臨床應用邊界</h2>
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h3 style="margin-top: 0;">⚠️ 主要爭議</h3>
+        <ul class="bullet-list">
+          <li><strong>運動音樂「間接效應」</strong> — 快節奏並未直接提高代謝率 (VO₂無顯著差異)，而是降低主觀疲勞、延長運動時間 (行為催化劑)。</li>
+          <li><strong>40 Hz 雙耳節拍</strong> — 注意力改善證據矛盾，神經夾帶未獲一致證實 (Leistiko 2023 vs. Engelbregt 2021)。</li>
+          <li><strong>432 Hz 神話</strong> — 系統性回顧結論混合，效果可能源於慢節奏與編曲，非頻率本身。</li>
+          <li><strong>劑量效應不明</strong> — 最佳聆聽時長、頻率仍缺乏高品質 RCT。</li>
+        </ul>
+      </div>
+      <div class="insight-card">
+        <h3 style="margin-top: 0;">🧬 App 開發誤區規避</h3>
+        <ul class="bullet-list">
+          <li><strong>❌ 僅用 BPM 分類</strong> → 應整合 HRV、膚電、加速度計等多模態生理信號。</li>
+          <li><strong>❌ 強制「標準曲庫」</strong> → 自選音樂鎮痛/抗焦慮效果優於預設 (Becker 2025)。</li>
+          <li><strong>❌ 線性心率→BPM 映射</strong> → 高心率可能源於興奮或焦慮，需區分效價。</li>
+          <li><strong>❌ 過度營銷單一頻率</strong> → 432Hz/40Hz 證據不足，應標明「初步證據，個體差異大」。</li>
+          <li><strong>✅ 提供文化多樣性</strong> — 避免西方古典中心，加入印度拉格、日本雅樂等選項。</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 24px; background: #dce9f2; padding: 18px 22px; border-radius: 26px;">
+      <p style="font-weight: 600; margin-bottom: 6px;">🎯 關鍵實作建議</p>
+      <p style="margin-bottom: 0;">開發自適應音樂 App 時，建議採用「偏好優先 + 生理反饋微調」架構。利用 PPG 時間變形 (Easthope 2025) 實現精細心率－節奏耦合，並提供性別差異選項 (女性跑者心率同步更佳)。務必標註功能音樂的輔助角色，而非醫療宣稱。</p>
+    </div>
+    <div class="footnote">
+      📖 文獻支持：Terry (2020) · Danso (2025) · Becker (2025) · Gantt (2023) · de Witte (2020) · Verma (2024) 等。<br>
+      🎵 YouTube 連結均選自長期穩定的功能性音樂頻道 (Yellow Brick Cinema, Meditative Mind, Greenred Productions)。
+    </div>
+  </div>
+  
+  <!-- 輕量提示 -->
+  <div style="margin-top: 30px; text-align: center; opacity: 0.7; font-size: 0.85rem;">
+    ⏱️ 建議每次聆聽 15–30 分鐘，使用耳機以獲得雙耳節拍效益。本頁僅供健康促進參考，不替代醫療處置。
+  </div>
+
+  <!-- 署名列：最下方一行，已更新為「李亮頡」 -->
+  <div class="signature">
+    營養師 李亮頡 研究開發 2026/04/08
+  </div>
+</div>
+</body>
+</html>
